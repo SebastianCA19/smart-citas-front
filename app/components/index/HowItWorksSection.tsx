@@ -62,7 +62,7 @@ export default function HowItWorksSection() {
   ];
 
   return (
-    <section ref={sectionRef} className="py-20 bg-linear-to-b from-slate-50 to-white">
+    <section ref={sectionRef} className="py-20 bg-white">
       <div className="max-w-7xl mx-auto px-6 lg:px-20">
         {/* Header */}
         <div className={`text-center mb-20 transition-all duration-1000 ${
