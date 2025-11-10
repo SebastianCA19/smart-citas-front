@@ -27,7 +27,7 @@ export default function PatientsHeader() {
             Ver Historias Clínicas
           </a>
           <a
-            href="/"
+            href="/patients/appointment"
             className="bg-blue-900 text-white px-6 py-3 rounded-xl hover:bg-blue-800 transition-all duration-200 shadow-lg shadow-blue-900/30 font-semibold"
           >
             Agendar Cita
@@ -107,7 +107,7 @@ export default function PatientsHeader() {
           {/* Navigation Links */}
           <div className="p-6 space-y-2">
             <a
-              href="/"
+              href="/patients/appointment"
               className="flex items-center gap-3 px-4 py-3 bg-blue-900 text-white rounded-xl hover:bg-blue-800 transition-all duration-200 shadow-lg shadow-blue-900/30 font-semibold"
             >
               <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
