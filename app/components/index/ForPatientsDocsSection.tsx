@@ -199,7 +199,7 @@ export default function ForPatientsDocsSection() {
         }`}
         style={{ transitionDelay: '600ms' }}>
             <div className="flex flex-col items-center">
-                <h3 className="bg-linear-to-r from-blue-900 to-blue-700 bg-clip-text text-transparent text-2xl lg:text-3xl font-bold mb-4">
+                <h3 className="bg-linear-to-r from-blue-900 to-blue-700 bg-clip-text text-transparent text-2xl lg:text-3xl font-bold mb-4 text-center">
                     ¿Qué esperas para empezar a gestionar tus citas con nosotros?
                 </h3>
                 <p className="text-xl text-slate-600 mb-8">

@@ -8,7 +8,7 @@ export default function PatientsHeader() {
     <>
       <header className="w-full flex flex-row justify-between items-center px-6 lg:px-20 py-4 bg-white sticky top-0 z-50 shadow-md">
         {/* Logo */}
-        <h1 className="text-2xl lg:text-3xl font-bold bg-linear-to-r from-blue-900 to-blue-700 bg-clip-text text-transparent">
+        <h1 className="text-2xl lg:text-3xl font-bold bg-linear-to-r from-blue-900 to-blue-700 bg-clip-text text-transparent hover:cursor-pointer" onClick= {() => window.location.href = '/patients'}>
           Smart Citas
         </h1>
 
