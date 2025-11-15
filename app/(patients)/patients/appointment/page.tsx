@@ -161,7 +161,7 @@ export default function AppointmentPage() {
         position="top-right"
         reverseOrder={false}
       />
-    <div className="px-4 py-2 rounded-xl w-fit z-50 fixed top-24 left-6 lg:left-20 hidden md:flex items-center gap-2 text-blue-900 font-medium mb-6 bg-white transition-all duration-200 transform hover:scale-105 hover:bg-linear-to-r hover:from-blue-600 hover:to-blue-800 hover:text-white hover:shadow-lg hover:shadow-blue-300 hover:ring-2 hover:ring-blue-200/70 focus:outline-none focus:ring-4 focus:ring-blue-200/40 cursor-pointer">
+    <div className="px-4 py-2 rounded-xl w-fit z-40 fixed top-24 left-6 lg:left-20 hidden md:flex items-center gap-2 text-blue-900 font-medium mb-6 bg-white transition-all duration-200 transform hover:scale-105 hover:bg-linear-to-r hover:from-blue-600 hover:to-blue-800 hover:text-white hover:shadow-lg hover:shadow-blue-300 hover:ring-2 hover:ring-blue-200/70 focus:outline-none focus:ring-4 focus:ring-blue-200/40 cursor-pointer">
         {/* Back Button */}
         <a 
             href="/patients"

@@ -1,8 +1,27 @@
 "use client";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export default function PatientsHeader() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [userName, setUserName] = useState("John Doe");
+
+  const handleUserName = () =>{
+    const userData = sessionStorage.getItem('user');
+    if(userData){
+      const user = JSON.parse(userData);
+      setUserName(user.nombre + " " + user.primerApellido);
+    }
+  }
+
+  const getUserInitials = () => {
+    const names = userName.split(" ");
+    const initials = names.map((n: string) => n.charAt(0).toUpperCase()).join("");
+    return initials;
+  }
+
+  useEffect(() => {
+    handleUserName();
+  }, []);  
 
   return (
     <>
@@ -36,7 +55,7 @@ export default function PatientsHeader() {
           {/* Profile */}
           <a href="/" className="ml-2">
             <div className="w-10 h-10 bg-linear-to-br from-blue-600 to-blue-900 rounded-full flex items-center justify-center text-white font-semibold hover:shadow-lg transition-all duration-200">
-              JD
+              {getUserInitials()}
             </div>
           </a>
         </nav>
@@ -73,7 +92,7 @@ export default function PatientsHeader() {
 
       {/* Mobile Sidebar */}
       <div
-        className={`fixed inset-0 bg-black/50 z-40 lg:hidden transition-opacity duration-300 ${
+        className={`fixed inset-0 bg-black/50 z-50 lg:hidden transition-opacity duration-300 ${
           isMenuOpen ? "opacity-100" : "opacity-0 pointer-events-none"
         }`}
         onClick={() => setIsMenuOpen(false)}
@@ -95,10 +114,10 @@ export default function PatientsHeader() {
           <div className="p-6 border-b border-slate-200">
             <a href="/" className="flex items-center gap-4 hover:bg-slate-50 p-3 rounded-lg transition-colors">
               <div className="w-12 h-12 bg-linear-to-br from-blue-600 to-blue-900 rounded-full flex items-center justify-center text-white font-semibold">
-                JD
+                {getUserInitials()}
               </div>
               <div>
-                <p className="font-semibold text-slate-900">John Doe</p>
+                <p className="font-semibold text-slate-900">{userName}</p>
                 <p className="text-sm text-slate-600">Ver perfil</p>
               </div>
             </a>
