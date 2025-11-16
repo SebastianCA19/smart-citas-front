@@ -26,8 +26,19 @@ interface AppointmentCardProps {
 export default function AppointmentCard({ appointment, onClick }: AppointmentCardProps) {
   // Format date from YYYY-MM-DD to DD/MM/YYYY
   const formatDate = (dateStr: string) => {
-    const [year, month, day] = dateStr.split('-');
-    return `${day}/${month}/${year}`;
+    const [datePart, timePart] = dateStr.split("T");
+    const [year, month, day] = datePart.split("-");
+
+    if (!timePart) return `${day}/${month}/${year}`;
+
+    let [hour, minute] = timePart.split(":");
+    let h = parseInt(hour, 10);
+    const ampm = h >= 12 ? "PM" : "AM";
+
+    h = h % 12;
+    if (h === 0) h = 12;
+
+    return `${day}/${month}/${year} ${h}:${minute} ${ampm}`;
   };
 
   return (

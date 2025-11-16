@@ -34,7 +34,7 @@ export default function PatientsHeader() {
         {/* Desktop Navigation */}
         <nav className="hidden lg:flex items-center gap-6">
           <a
-            href="/"
+            href="/patients/appohistory"
             className="text-slate-700 hover:text-blue-900 font-medium transition-colors"
           >
             Ver Historial de Citas
@@ -53,7 +53,7 @@ export default function PatientsHeader() {
           </a>
           
           {/* Profile */}
-          <a href="/" className="ml-2">
+          <a href="/profile" className="ml-2">
             <div className="w-10 h-10 bg-linear-to-br from-blue-600 to-blue-900 rounded-full flex items-center justify-center text-white font-semibold hover:shadow-lg transition-all duration-200">
               {getUserInitials()}
             </div>
@@ -112,7 +112,7 @@ export default function PatientsHeader() {
 
           {/* Profile Section */}
           <div className="p-6 border-b border-slate-200">
-            <a href="/" className="flex items-center gap-4 hover:bg-slate-50 p-3 rounded-lg transition-colors">
+            <a href="/profile" className="flex items-center gap-4 hover:bg-slate-50 p-3 rounded-lg transition-colors">
               <div className="w-12 h-12 bg-linear-to-br from-blue-600 to-blue-900 rounded-full flex items-center justify-center text-white font-semibold">
                 {getUserInitials()}
               </div>
