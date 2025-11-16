@@ -1,14 +1,76 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import AppointmentCard from "@/app/components/patients/AppointmentCard";
-import AppointmentInfoCard from "@/app/components/patients/AppointmentInfoCard";
-import { Appointment } from "@/app/components/types/Appointment";
 import { Toaster, toast } from "react-hot-toast";
+import AppointmentInfoCard from "@/app/components/patients/AppointmentInfoCard";
+
+interface Appointment {
+  id: number;
+  idAppointmentType: number;
+  appointmentTypeName: string;
+  idPlace: number;
+  placeName: string;
+  idProcedure: number;
+  procedureName: string;
+  idDoctor: number;
+  doctorName: string;
+  idNurse: number;
+  idPatient: number;
+  date: string;
+}
 
 interface AppointmentCardProps {
-    appointment: Appointment;
-    onClick?: (appointment: Appointment) => void;
+  appointment: Appointment;
+  onClick?: (appointment: Appointment) => void;
+}
+
+function AppointmentCard({ appointment, onClick }: AppointmentCardProps) {
+  // Format date from YYYY-MM-DD to DD/MM/YYYY
+  const formatDate = (dateStr: string) => {
+    const [datePart, timePart] = dateStr.split("T");
+    const [year, month, day] = datePart.split("-");
+
+    if (!timePart) return `${day}/${month}/${year}`;
+
+    let [hour, minute] = timePart.split(":");
+    let h = parseInt(hour, 10);
+    const ampm = h >= 12 ? "PM" : "AM";
+
+    h = h % 12;
+    if (h === 0) h = 12;
+
+    return `${day}/${month}/${year} ${h}:${minute} ${ampm}`;
+  };
+
+
+  return (
+    <div
+      onClick={() => onClick && onClick(appointment)}
+      className="bg-white rounded-xl shadow-md hover:shadow-xl transition-all duration-300 p-6 cursor-pointer border-2 border-slate-200 hover:bg-blue-50"
+    >
+      <div className="flex justify-between items-start">
+        <div className="flex-1">
+          <h3 className="text-lg font-bold text-slate-900 mb-2">
+            {appointment.appointmentTypeName}
+          </h3>
+          <p className="text-slate-600 text-sm mb-1">
+            Dr. {appointment.doctorName}
+          </p>
+          <p className="text-slate-500 text-sm">
+            {appointment.placeName}
+          </p>
+          <p className="text-slate-500 text-sm mt-1">
+            {appointment.procedureName}
+          </p>
+        </div>
+        <div className="text-right">
+          <p className="text-slate-900 font-semibold text-sm">
+            {formatDate(appointment.date)}
+          </p>
+        </div>
+      </div>
+    </div>
+  );
 }
 
 export default function PatientsPage() {
@@ -47,17 +109,42 @@ export default function PatientsPage() {
     setIsLoading(true);
     try {
       const response = await fetch(`http://localhost:8082/api/appointment/patient/${cedula}/details`);
+      
       if (!response.ok) {
         if (response.status === 404) {
           // No appointments found
           setAppointments([]);
+          setIsLoading(false);
           return;
         }
         throw new Error('Error al cargar las citas');
       }
 
       const data = await response.json();
-      setAppointments(data);
+      // Ensure data is an array and parse doctorName if it's a JSON string
+      if (Array.isArray(data)) {
+        const parsedAppointments = data.map((apt: any) => {
+          let doctorName = apt.doctorName;
+          
+          // Check if doctorName is a JSON string and parse it
+          if (typeof doctorName === 'string' && doctorName.startsWith('{')) {
+            try {
+              const doctorObj = JSON.parse(doctorName);
+              doctorName = `${doctorObj.nombre} ${doctorObj.primerApellido}${doctorObj.segundoApellido ? ' ' + doctorObj.segundoApellido : ''}`.trim();
+            } catch (e) {
+              console.error('Error parsing doctor name:', e);
+            }
+          }
+          
+          return {
+            ...apt,
+            doctorName
+          };
+        });
+        setAppointments(parsedAppointments);
+      } else {
+        setAppointments([]);
+      }
       
     } catch (error) {
       console.error('Error fetching appointments:', error);
@@ -78,7 +165,7 @@ export default function PatientsPage() {
   };
 
   const handleCancel = async (appointment: Appointment): Promise<void> => {
-    // Check if appointment is less than 24 hours ahead
+    // Check if appointment is within 24 hours
     const appointmentDate = new Date(appointment.date);
     const now = new Date();
     const hoursDiff = (appointmentDate.getTime() - now.getTime()) / (1000 * 60 * 60);
@@ -182,7 +269,7 @@ export default function PatientsPage() {
             </div>
 
             {/* Right Column - Appointment Info (Desktop only) */}
-            <div className="hidden lg:block sticky top-32 h-fit">
+            <div className="hidden lg:block sticky top-30 h-fit">
               <AppointmentInfoCard
                 appointment={selectedAppointment}
                 onConfirm={handleConfirm}

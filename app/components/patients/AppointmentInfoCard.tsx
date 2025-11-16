@@ -17,8 +17,12 @@ export default function AppointmentInfoCard({
   isMobile = false 
 }: AppointmentInfoCardProps) {
   const formatDate = (dateStr: string) => {
-    const [year, month, day] = dateStr.split('-');
-    return `${day}/${month}/${year}`;
+    if (!dateStr) return '';
+    const d = new Date(dateStr);
+    if (isNaN(d.getTime())) return dateStr;
+    const date = d.toLocaleDateString('es-ES'); // "18/11/2025"
+    const time = d.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit', hour12: true }); // "1:00 PM"
+    return `${date} ${time}`;
   };
 
   if (!appointment) {
@@ -109,7 +113,7 @@ export default function AppointmentInfoCard({
   if (isMobile) {
     return (
       <div className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4 lg:hidden">
-        <div className="w-full bg-white rounded-3xl relative">
+        <div className="w-full sm:w-4/5 bg-white rounded-3xl relative">
           {content}
         </div>
       </div>
