@@ -53,7 +53,7 @@ export default function PatientsHeader() {
           </a>
           
           {/* Profile */}
-          <a href="/profile" className="ml-2">
+          <a href="/patients/profile" className="ml-2">
             <div className="w-10 h-10 bg-linear-to-br from-blue-600 to-blue-900 rounded-full flex items-center justify-center text-white font-semibold hover:shadow-lg transition-all duration-200">
               {getUserInitials()}
             </div>

@@ -130,7 +130,7 @@ export default function DoctorsSidebar() {
                         <span className={`font-medium text-sm lg:text-base ${
                             isActive('/doctors/appointments') ? 'font-semibold' : ''
                         }`}>
-                            Ver Citas Pendientes
+                            Ver Citas
                         </span>
                     </Link>
                     
