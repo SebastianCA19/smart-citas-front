@@ -3,11 +3,13 @@
 import React from "react";
 import { Menu, X } from "lucide-react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 export default function DoctorsSidebar() {
     const [isOpen, setIsOpen] = React.useState(false);
     const [userName, setUserName] = React.useState<string>("");
     const [email, setEmail] = React.useState<string>("");
+    const pathname = usePathname();
 
     const toggleSidebar = () => {
         setIsOpen((prev) => !prev);
@@ -58,6 +60,14 @@ export default function DoctorsSidebar() {
         return name[0].toUpperCase();
     };
 
+    const handleLinkClick = () => {
+        setIsOpen(false);
+    };
+
+    const isActive = (path: string) => {
+        return pathname === path;
+    };
+
     return (
         <>
             {/* Overlay for mobile */}
@@ -80,7 +90,7 @@ export default function DoctorsSidebar() {
             {/* Sidebar */}
             <aside
                 id="sidebar-container"
-                className={`fixed lg:static top-0 left-0 h-screen w-72 lg:w-full bg-white transition-transform duration-300 z-40 lg:z-0 ${
+                className={`fixed lg:sticky top-0 left-0 h-screen w-72 lg:w-full bg-white transition-transform duration-300 z-40 lg:z-0 ${
                     isOpen ? 'translate-x-0' : '-translate-x-full'
                 } lg:translate-x-0 shadow-2xl lg:shadow-none flex flex-col`}
             >
@@ -101,28 +111,52 @@ export default function DoctorsSidebar() {
                 <nav className="flex-1 p-4 overflow-y-auto">
                     <Link
                         href="/doctors/appointments"
-                        className="group border-l-4 border-l-transparent flex flex-row items-center gap-4 text-gray-700 hover:border-l-blue-500 hover:bg-blue-50 hover:text-blue-700 px-4 py-3 rounded-r-lg mb-2 transition-all duration-200"
-                        onClick={() => setIsOpen(false)}
+                        className={`group border-l-4 flex flex-row items-center gap-4 px-4 py-3 rounded-r-lg mb-2 transition-all duration-200 ${
+                            isActive('/doctors/appointments')
+                                ? 'border-l-blue-600 bg-blue-50 text-blue-700 shadow-sm'
+                                : 'border-l-transparent text-gray-700 hover:border-l-blue-500 hover:bg-blue-50 hover:text-blue-700'
+                        }`}
+                        onClick={handleLinkClick}
                     >
-                        <div className="flex shrink-0 w-10 h-10 items-center justify-center rounded-lg bg-gray-100 group-hover:bg-blue-100 transition-colors duration-200">
+                        <div className={`flex shrink-0 w-10 h-10 items-center justify-center rounded-lg transition-colors duration-200 ${
+                            isActive('/doctors/appointments')
+                                ? 'bg-blue-100'
+                                : 'bg-gray-100 group-hover:bg-blue-100'
+                        }`}>
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640" className="fill-current w-6 h-6">
                                 <path d="M416 64C433.7 64 448 78.3 448 96L448 128L480 128C515.3 128 544 156.7 544 192L544 480C544 515.3 515.3 544 480 544L160 544C124.7 544 96 515.3 96 480L96 192C96 156.7 124.7 128 160 128L192 128L192 96C192 78.3 206.3 64 224 64C241.7 64 256 78.3 256 96L256 128L384 128L384 96C384 78.3 398.3 64 416 64zM438 225.7C427.3 217.9 412.3 220.3 404.5 231L285.1 395.2L233 343.1C223.6 333.7 208.4 333.7 199.1 343.1C189.8 352.5 189.7 367.7 199.1 377L271.1 449C276.1 454 283 456.5 289.9 456C296.8 455.5 303.3 451.9 307.4 446.2L443.3 259.2C451.1 248.5 448.7 233.5 438 225.7z"/>
                             </svg>
                         </div>
-                        <span className="font-medium text-sm lg:text-base">Ver Citas Pendientes</span>
+                        <span className={`font-medium text-sm lg:text-base ${
+                            isActive('/doctors/appointments') ? 'font-semibold' : ''
+                        }`}>
+                            Ver Citas Pendientes
+                        </span>
                     </Link>
                     
                     <Link
                         href="/doctors/medical-records"
-                        className="group border-l-4 border-l-transparent flex flex-row items-center gap-4 text-gray-700 hover:border-l-blue-500 hover:bg-blue-50 hover:text-blue-700 px-4 py-3 rounded-r-lg mb-2 transition-all duration-200"
-                        onClick={() => setIsOpen(false)}
+                        className={`group border-l-4 flex flex-row items-center gap-4 px-4 py-3 rounded-r-lg mb-2 transition-all duration-200 ${
+                            isActive('/doctors/medical-records')
+                                ? 'border-l-blue-600 bg-blue-50 text-blue-700 shadow-sm'
+                                : 'border-l-transparent text-gray-700 hover:border-l-blue-500 hover:bg-blue-50 hover:text-blue-700'
+                        }`}
+                        onClick={handleLinkClick}
                     >
-                        <div className="flex shrink-0 w-10 h-10 items-center justify-center rounded-lg bg-gray-100 group-hover:bg-blue-100 transition-colors duration-200">
+                        <div className={`flex shrink-0 w-10 h-10 items-center justify-center rounded-lg transition-colors duration-200 ${
+                            isActive('/doctors/medical-records')
+                                ? 'bg-blue-100'
+                                : 'bg-gray-100 group-hover:bg-blue-100'
+                        }`}>
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640" className="fill-current w-6 h-6">
                                 <path d="M128.1 64C92.8 64 64.1 92.7 64.1 128L64.1 512C64.1 547.3 92.8 576 128.1 576L274.3 576L285.2 521.5C289.5 499.8 300.2 479.9 315.8 464.3L448 332.1L448 234.6C448 217.6 441.3 201.3 429.3 189.3L322.8 82.7C310.8 70.7 294.5 64 277.6 64L128.1 64zM389.6 240L296.1 240C282.8 240 272.1 229.3 272.1 216L272.1 122.5L389.6 240zM332.3 530.9L320.4 590.5C320.2 591.4 320.1 592.4 320.1 593.4C320.1 601.4 326.6 608 334.7 608C335.7 608 336.6 607.9 337.6 607.7L397.2 595.8C409.6 593.3 421 587.2 429.9 578.3L548.8 459.4L468.8 379.4L349.9 498.3C341 507.2 334.9 518.6 332.4 531zM600.1 407.9C622.2 385.8 622.2 350 600.1 327.9C578 305.8 542.2 305.8 520.1 327.9L491.3 356.7L571.3 436.7L600.1 407.9z"/>
                             </svg>
                         </div>
-                        <span className="font-medium text-sm lg:text-base">Ver Historias Clínicas</span>
+                        <span className={`font-medium text-sm lg:text-base ${
+                            isActive('/doctors/medical-records') ? 'font-semibold' : ''
+                        }`}>
+                            Ver Historias Clínicas
+                        </span>
                     </Link>
                 </nav>
 

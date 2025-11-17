@@ -40,10 +40,10 @@ export default function PatientsHeader() {
             Ver Historial de Citas
           </a>
           <a
-            href="/"
+            href="/patients/medical-records"
             className="text-slate-700 hover:text-blue-900 font-medium transition-colors"
           >
-            Ver Historias Clínicas
+            Ver mis Historias Clinicas
           </a>
           <a
             href="/patients/appointment"
