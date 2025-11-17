@@ -1,4 +1,4 @@
-export default function DocAppointmentPage(){
+export default function DocMedicalRecordsPage(){
     return (
         <>
             historias clinicas
