@@ -129,7 +129,7 @@ export default function DoctorsSidebar() {
                 {/* Profile Section */}
                 <div className="border-t border-gray-200 p-4">
                     <div className="flex items-center gap-3 p-3 mb-3 bg-gray-50 rounded-lg">
-                        <div className="flex-shrink-0 w-12 h-12 rounded-full bg-gradient-to-br from-blue-500 to-blue-700 flex items-center justify-center text-white font-bold text-lg shadow-lg">
+                        <div className="shrink-0 w-12 h-12 rounded-full bg-linear-to-br from-blue-500 to-blue-700 flex items-center justify-center text-white font-bold text-lg shadow-lg">
                             {getInitials(userName)}
                         </div>
                         <div className="flex-1 min-w-0">
