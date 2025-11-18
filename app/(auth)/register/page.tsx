@@ -84,17 +84,13 @@ export default function RegisterPage() {
 
             const result = await response.json();
             
-            toast.success('¡Registro exitoso!');
+            toast.success('¡Registro exitoso! Ya puedes iniciar sesión');
 
             sessionStorage.setItem('user', JSON.stringify(result));
             
             // Redirect based on user type
             setTimeout(() => {
-                if (isDoctor) {
-                    window.location.href = "/doctors";
-                } else {
-                    window.location.href = "/patients";
-                }
+                window.location.href = "/login";                
             }, 500);
 
         } catch (error: any) {

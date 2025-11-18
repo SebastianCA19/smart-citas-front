@@ -97,7 +97,6 @@ export default function AppointmentPage() {
   useEffect(() => {
     // Get user data from sessionStorage
     const userDataStr = sessionStorage.getItem('user');
-    console.log('User data from sessionStorage:', userDataStr);
     if (!userDataStr) {
       toast.error('No se encontró información de usuario. Por favor inicie sesión.');
       setTimeout(() => {

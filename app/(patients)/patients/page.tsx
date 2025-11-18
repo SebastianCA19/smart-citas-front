@@ -84,7 +84,6 @@ export default function PatientsPage() {
           const aptDate = new Date(apt.date);
           return (aptDate.getMonth() + 1 === month && aptDate.getFullYear() === year);
         });
-        console.log(filteredAppointments);
         setAppointments(filteredAppointments);
       } else {
         setAppointments([]);
